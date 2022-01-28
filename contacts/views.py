@@ -31,6 +31,9 @@ def single_contact(request, contact_id):
 def search(request):
     term = request.GET.get('term')
 
+    if term is None:
+        raise Http404()
+
     fields = Concat('first_name', Value(' '), 'last_name')
 
     contacts = Contact.objects.annotate(
